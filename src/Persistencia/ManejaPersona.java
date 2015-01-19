@@ -7,6 +7,7 @@ package Persistencia;
 
 import Aplicacion.ConexionOracle;
 import Datos.Persona;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -47,5 +48,22 @@ public class ManejaPersona extends ManejaTabla {
             System.out.println(e.getSQLState());
             System.out.println(e.getErrorCode());
         }
+    }
+    
+    public int generarClave() {
+        String statement = "SELECT MAX(id) FROM PERSONA";
+        int maximaClave = -1;
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(statement);
+            maximaClave = rs.getInt(1);
+            maximaClave++;
+        } catch (SQLException ex){
+            System.out.println("Error al consultar clave de persona");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
+        return maximaClave;
     }
 }
