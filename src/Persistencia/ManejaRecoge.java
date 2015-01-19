@@ -124,21 +124,15 @@ public class ManejaRecoge extends ManejaTabla {
         if(soloInfo) {
             try (Statement stmt = conn.createStatement()){
                 ManejaPersona mPer = new ManejaPersona(conn);
+                ManejaInstitucion mInst = new ManejaInstitucion(conn);
                 if(!mPer.existeVoluntario(idVoluntario)) {
-                    statement = "select * from INSTITUCION "
-                            + "where idVoluntario='" + idVoluntario + "'";
-                    rs = stmt.executeQuery(statement);
-                    rs.next();
-                    i.setInstitucion(rs.getString(1), 
-                                        rs.getString(2), 
-                                        rs.getString(3), 
-                                        rs.getString(4),
-                                        rs.getInt(5));
+                    i = mInst.getVoluntario(idVoluntario);
                 } else {
                     p = mPer.getVoluntario(idVoluntario);
                 }
             } catch (SQLException ex) {
-                System.out.println("Error al consultar la tabla PERSONA o INSTITUCION");
+                System.out.println("Error al consultar la tabla"
+                        + " PERSONA o INSTITUCION");
                 System.out.println(ex.getMessage());
                 System.out.println(ex.getSQLState());
                 System.out.println(ex.getErrorCode());
