@@ -25,7 +25,13 @@ public class Establecimiento {
         this.direccion = direccion;
         this.localidad = localidad;
     }
-
+    
+    public void setEstablecimiento(int id, String nombre, String direccion, String localidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.localidad = localidad;
+    }
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getDireccion() { return direccion; }
@@ -35,4 +41,11 @@ public class Establecimiento {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
     public void setLocalidad(String localidad) { this.localidad = localidad; }
+
+    @Override
+    public String toString() {
+        return id + ", " + nombre + ", " + direccion + ", " + localidad;
+    }
+    
+    
 }

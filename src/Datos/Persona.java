@@ -34,6 +34,17 @@ public class Persona {
         this.edad = edad;
         this.localidad = localidad;
     }
+    
+    public void setPersona(String dni, String nombre, String apellido1, String apellido2, String tlf, String email, int edad, String localidad) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.tlf = tlf;
+        this.email = email;
+        this.edad = edad;
+        this.localidad = localidad;
+    }
 
     public String getDni() { return dni; }
     public String getNombre() { return nombre; }
@@ -52,4 +63,11 @@ public class Persona {
     public void setEmail(String email) { this.email = email; }
     public void setEdad(int edad) { this.edad = edad; }
     public void setLocalidad(String localidad) { this.localidad = localidad; }
+
+    @Override
+    public String toString() {
+        return dni + ", " + nombre + ", " + apellido1 + ", " + apellido2 + ", " + tlf + ", " + email + ", " + edad + ", " + localidad;
+    }
+    
+    
 }

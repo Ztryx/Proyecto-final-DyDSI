@@ -1,6 +1,7 @@
 package Datos;
 
-import java.sql.Date;
+import Aplicacion.Fecha;
+import java.util.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,4 +34,8 @@ public class Alimento {
     public void setId(int id) { this.id = id; }
     public void setDescripcion(String d) { this.descripcion = d; }
     public void setFechaCad(Date fechaCad) { this.fechaCad = fechaCad; }
+    
+    public String toString() {
+        return "" + id + ", " + descripcion + ", " + Fecha.fecha(fechaCad);
+    }
 }
