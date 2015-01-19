@@ -21,9 +21,9 @@ public class TestManejaAlimento {
         ManejaAlimento mAlim = new ManejaAlimento(conn);
         LinkedList<Alimento> caducados = 
                 (LinkedList<Alimento>) mAlim.alimentosCaducados();
-        caducados.stream().forEach((a) -> {
+        for(Alimento a : caducados) {
             System.out.println(a.toString());
-        });
+        }
         
         conn.Desconexion();
     }
