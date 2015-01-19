@@ -140,6 +140,7 @@ public class Menu {
             if (CIF != null)
                 System.out.println("CIF no valido");
             System.out.println("Introduce el CIF de la Institución a eliminar: ");
+            CIF = Teclado.readString();
         } while (!CIF.matches("([A-Z]{1})(\\d{8})"));
         
         mInst.eliminaInstitucion(CIF);
