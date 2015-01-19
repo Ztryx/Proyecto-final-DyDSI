@@ -34,10 +34,11 @@ public class ManejaRecoge extends ManejaTabla {
         LinkedList<Alimento> resultado = new LinkedList<>();
         try (Statement stmt = conn.createStatement()) {
             String statement = "select * from ALIMENTO where " +
-                    "id=( select alimento from RECOGE where " + 
+                    "id in ( select alimento from RECOGE where " + 
                     "establecimiento=" + idE + " AND " +
-                    "fechaEntrada>" + desde + " AND " +
-                    "fechaEntrada<" + hasta + ")";
+                    "fecha_recogida> '" + Fecha.fecha(desde) + "' AND " +
+                    "fecha_recogida< '" + Fecha.fecha(hasta) + "')";
+            System.out.println(statement);
             ResultSet rs = stmt.executeQuery(statement);
             
             while(rs.next()) {

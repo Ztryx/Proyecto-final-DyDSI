@@ -5,6 +5,7 @@ import Persistencia.ManejaAlimento;
 import Persistencia.ManejaEstablecimiento;
 import Persistencia.ManejaInstitucion;
 import Persistencia.ManejaPersona;
+import Persistencia.ManejaRecoge;
 
 public class Aplicacion_Cliente {
 
@@ -27,7 +28,8 @@ public class Aplicacion_Cliente {
                     break;
                 case 3:
                     ManejaEstablecimiento mEstablecimiento = new ManejaEstablecimiento(conexion);
-                    Menu.alimentosRecogidos(mEstablecimiento);
+                    ManejaRecoge mRecoge = new ManejaRecoge(conexion);
+                    Menu.alimentosRecogidos(mEstablecimiento, mRecoge);
                     break;
                 case 4:
                     break;
