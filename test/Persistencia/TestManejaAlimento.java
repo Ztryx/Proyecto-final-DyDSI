@@ -24,7 +24,6 @@ public class TestManejaAlimento {
         for(Alimento a : caducados) {
             System.out.println(a.toString());
         }
-        
         conn.Desconexion();
     }
 }
