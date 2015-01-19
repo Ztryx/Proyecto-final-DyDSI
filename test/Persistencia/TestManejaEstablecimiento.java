@@ -29,12 +29,17 @@ public class TestManejaEstablecimiento {
         
         // prueba insertarEstablecimiento()
         mEst.insertarEstablecimiento(establecimiento);
+        System.out.println(establecimiento.toString() + "\n");
         
         // prueba getEstablecimiento()
         Establecimiento est2 = mEst.getEstablecimiento(clave);
+        System.out.println(est2.toString() + "\n");
         
         // prueba getEstablecimientos()
         LinkedList<Establecimiento> ests = (LinkedList<Establecimiento>) 
                 mEst.getEstablecimientos();
+        for(Establecimiento e : ests) {
+            System.out.println(e.toString());
+        }
     }
 }

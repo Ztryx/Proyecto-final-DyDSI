@@ -16,7 +16,7 @@ public class TestManejaVoluntario {
         conn.Conexion();
         
         ManejaVoluntario mVol = new ManejaVoluntario(conn);
-        mVol.eliminaVoluntario(1);
+        mVol.eliminaVoluntario(-1);
         int id = mVol.generarClave();
         
     }

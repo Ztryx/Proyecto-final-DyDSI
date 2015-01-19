@@ -62,8 +62,9 @@ public class ManejaInstitucion extends ManejaTabla {
             String statement = "select idVoluntario from INSTITUCION where CIF="
                     + "'" + cif + "'";
             ResultSet rs = stmt.executeQuery(statement);
-            rs.next();
-            idVoluntario = rs.getInt("idVoluntario");
+            if(rs.next())
+                idVoluntario = rs.getInt("idVoluntario");
+            
         } catch (SQLException e) {
             System.out.println("Error al consultar la tabla INSTITUCION");
             System.out.println(e.getMessage());
@@ -81,12 +82,13 @@ public class ManejaInstitucion extends ManejaTabla {
             String statement = "select * from INSTITUCION "
                     + "where idVoluntario='" + idVoluntario + "'";
             ResultSet rs = stmt.executeQuery(statement);
-            rs.next();
-            instit = new Institucion(rs.getString("cif"),
-                    rs.getString("nombre"),
-                    rs.getString("razon_social"),
-                    rs.getString("telefono"),
-                    idVoluntario);
+            if(rs.next()) {
+                instit = new Institucion(rs.getString("cif"),
+                        rs.getString("nombre"),
+                        rs.getString("razon_social"),
+                        rs.getString("telefono"),
+                        idVoluntario);
+            }
         } catch (SQLException ex) {
             System.out.println("Error al consultar de "
                     + "la tabla INSTITUCION");

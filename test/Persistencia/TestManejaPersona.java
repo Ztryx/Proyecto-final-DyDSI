@@ -21,7 +21,7 @@ public class TestManejaPersona {
         
         ManejaPersona manejap = new ManejaPersona(conn);
         int clave = manejap.generarClave();
-        Persona p = new Persona("29621480X", "Cesar", "Enrique", "Ramirez", 
+        Persona p = new Persona("29621482X", "Cesar", "Enrique", "Ramirez", 
                 "722461083", "caenrique93@gmail.com", 21, "Huelva", 
                 clave);
         

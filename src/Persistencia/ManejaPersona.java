@@ -22,28 +22,22 @@ public class ManejaPersona extends ManejaTabla {
     }
     
     public void insertaPersona(Persona p) {
+        ManejaVoluntario mVol = new ManejaVoluntario(conn);
+        int clave = mVol.insertaVoluntario();
         try (Statement stmt = conn.createStatement()) {
             String statement = "insert into PERSONA values (" +
                     "'" + p.getDni() + "'," +
                     "'" + p.getNombre() + "'," +
                     "'" + p.getApellido1() + "'," +
                     "'" + p.getApellido2() + "'," +
-                    "'" + p.getTlf() + "'," +
+                    "'" + p.getEdad() + "'," +
                     "'" + p.getEmail() + "'," +
-                    "'" + p.getLocalidad() + "')";
+                    "'" + p.getLocalidad() + "'," +
+                    "'" + p.getTlf() + "'," +
+                    "'" + clave + "')";
             stmt.executeQuery(statement);
         } catch (SQLException e) {
             System.out.println("Error al insertar en la tabla PERSONA");
-            System.out.println(e.getMessage());
-            System.out.println(e.getSQLState());
-            System.out.println(e.getErrorCode());
-        }
-        try (Statement stmt = conn.createStatement()) {
-            String statement = 
-                    "insert into VOLUNTARIO values (" + p.getDni() + "')";
-            stmt.executeQuery(statement);
-        } catch (SQLException e) {
-            System.out.println("Error al insertar en la tabla VOLUNTARIO");
             System.out.println(e.getMessage());
             System.out.println(e.getSQLState());
             System.out.println(e.getErrorCode());

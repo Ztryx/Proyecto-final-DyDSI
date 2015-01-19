@@ -18,18 +18,28 @@ public class TestManejaInstitucion {
         ManejaInstitucion mInst = new ManejaInstitucion(conn);
         conn.Conexion();
         
+        
         // probar cambiaCIF()
-        mInst.cambiaCIF("A11111112", "A11111113");
+        mInst.cambiaCIF("B12345678", "A11111113");
         
         // probar getVoluntario()
-        mInst.getVoluntario(1);
+        System.out.println(mInst.getVoluntario(1));
+        
         
         // probar getInstituciones()
         LinkedList<Institucion> instituciones = (LinkedList<Institucion>)
                  mInst.getInstituciones();
+        for(Institucion inst : instituciones) 
+            System.out.println(inst);
         
         // probar eliminaIstitucion
         mInst.eliminaInstitucion("A11111113");
+        
+        // probar getInstituciones()
+        instituciones = (LinkedList<Institucion>)
+                 mInst.getInstituciones();
+        for(Institucion inst : instituciones) 
+            System.out.println(inst);
         
         conn.Desconexion();
     }

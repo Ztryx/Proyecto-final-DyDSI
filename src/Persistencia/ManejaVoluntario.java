@@ -33,6 +33,21 @@ public class ManejaVoluntario  extends ManejaTabla {
         }
     }
     
+    public int insertaVoluntario() {
+        int clave = generarClave();
+        try (Statement stmt = conn.createStatement()) {
+            String statement = 
+                    "insert into VOLUNTARIO values ('" + clave + "')";
+            stmt.executeQuery(statement);
+        } catch (SQLException e) {
+            System.out.println("Error al insertar en la tabla VOLUNTARIO");
+            System.out.println(e.getMessage());
+            System.out.println(e.getSQLState());
+            System.out.println(e.getErrorCode());
+        }
+        return clave;
+    }
+    
     public boolean existeVoluntario(int idVoluntario) {
         int cuenta = -1;
         try(Statement stmt = conn.createStatement()) {
@@ -57,6 +72,7 @@ public class ManejaVoluntario  extends ManejaTabla {
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(statement);
+            rs.next();
             maximaClave = rs.getInt(1);
             maximaClave++;
         } catch (SQLException ex){
