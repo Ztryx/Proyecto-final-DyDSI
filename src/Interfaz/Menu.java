@@ -5,7 +5,10 @@
  */
 package Interfaz;
 
+import Datos.Institucion;
 import Datos.Persona;
+import Persistencia.ManejaInstitucion;
+import java.util.List;
 
 /**
  *
@@ -16,7 +19,7 @@ public class Menu {
     public static int principal() {
         System.out.println("### MENU ###");
         System.out.println("1. Insertar Voluntario (Persona)");
-        System.out.println("2. Insertar Voluntario (Institución)");
+        System.out.println("2. Eliminar Voluntario (Institución)");
         System.out.println("3. Obtener listado de alimentos recogidos entre"
                 + " dos fechas en un establecimiento");
         System.out.println("4. Insertar la información de la recogida de un "
@@ -124,4 +127,22 @@ public class Menu {
         System.out.println(persona);
         return persona;
     }
+
+    public static void eliminaInstitucion(ManejaInstitucion mInst) {
+        List<Institucion> instituciones = mInst.getInstituciones();
+        System.out.println("Instituciones actualmente en la base de datos: ");
+        System.out.println("CIF - Nombre - Razón Social - Teléfono");
+        for (Institucion i : instituciones) {
+            System.out.println(i);
+        }
+        String CIF = null;
+        do {
+            if (CIF != null)
+                System.out.println("CIF no valido");
+            System.out.println("Introduce el CIF de la Institución a eliminar: ");
+        } while (!CIF.matches("([A-Z]{1})(\\d{8})"));
+        
+        mInst.eliminaInstitucion(CIF);
+    }
+    
 }
