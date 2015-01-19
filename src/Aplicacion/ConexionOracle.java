@@ -18,7 +18,7 @@ public class ConexionOracle {
 
         try {
             conn = DriverManager.getConnection("jdbc:oracle:thin:@172.17.21.247:1521:pandora",
-                    "DDSI_003", "84AM3J");
+                    "DDSI_004", "DDSI_004pass");
         } catch (SQLException e) {
             System.out.println("Fallo en la conexion");
             e.printStackTrace();
@@ -27,6 +27,7 @@ public class ConexionOracle {
 
     public void Desconexion() {
         try {
+            conn.commit();
             conn.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block

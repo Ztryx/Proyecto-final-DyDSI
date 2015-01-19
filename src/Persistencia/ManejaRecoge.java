@@ -6,16 +6,17 @@
 package Persistencia;
 
 import Aplicacion.ConexionOracle;
+import Aplicacion.Fecha;
 import Datos.Alimento;
 import Datos.Establecimiento;
 import Datos.Institucion;
 import Datos.Persona;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Date;
 
 /**
  *
@@ -56,22 +57,10 @@ public class ManejaRecoge extends ManejaTabla {
     
     public void registraRecogida(int idV, int idE, Alimento a) {
         try (Statement stmt = conn.createStatement()) {
-            String statement = "insert into RECOGE values (" +
-                    "'" + idV + "'," +
-                    "'" + idE + "'," +
-                    "'" + a.getId() + "')";
-            ResultSet rs = stmt.executeQuery(statement);
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar en la tabla RECOGE");
-            System.out.println(ex.getMessage());
-            System.out.println(ex.getSQLState());
-            System.out.println(ex.getErrorCode());
-        }
-        try (Statement stmt = conn.createStatement()) {
             String statement = "insert into ALIMENTO values (" +
                     "'" + a.getId() + "'," +
                     "'" + a.getDescripcion()+ "'," +
-                    "'" + a.getFechaCaducidad()+ "')";
+                    "'" + Fecha.fecha(a.getFechaCaducidad())+ "')";
             ResultSet rs = stmt.executeQuery(statement);
         } catch (SQLException ex) {
             System.out.println("Error al insertar en la tabla ALIMENTO");
@@ -79,10 +68,25 @@ public class ManejaRecoge extends ManejaTabla {
             System.out.println(ex.getSQLState());
             System.out.println(ex.getErrorCode());
         }
+        try (Statement stmt = conn.createStatement()) {
+            String statement = "insert into RECOGE values (" +
+                    "'" + a.getId() + "'," +
+                    "'" + idV + "'," +
+                    "'" + idE + "'," + 
+                    "'" + Fecha.fecha()+ "'," +
+                    "Null, 0)";
+            System.out.println(statement);
+            ResultSet rs = stmt.executeQuery(statement);
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar en la tabla RECOGE");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
         
     }
     
-    public void productosRecogidos( int idVoluntario,
+    public boolean productosRecogidos( int idVoluntario,
                                     Persona p,
                                     Institucion i,
                                     List<Alimento> a,
@@ -91,15 +95,16 @@ public class ManejaRecoge extends ManejaTabla {
         try (Statement stmt = conn.createStatement()) {
             String statement = "select a.id, "
                     + "a.descripcion, "
-                    + "a.fechaCad, "
+                    + "a.fecha_Caducidad, "
                     + "e.id, "
                     + "e.nombre, "
                     + "e.direccion, "
-                    + "e.localidad"
-                    + "from ALIMENTO as a inner join("
-                    + "RECOGE as r inner join ESTABLECIMIENTO as e"
-                    + "on r.establecimiento=e.id) on a.id=r.alimento"
-                    + "where r.voluntario=" + idVoluntario + ";";
+                    + "e.localidad "
+                    + "from ALIMENTO a inner join("
+                    + "RECOGE r inner join ESTABLECIMIENTO e "
+                    + "on r.establecimiento=e.id) on a.id=r.alimento "
+                    + "where r.voluntario='" + idVoluntario + "'";
+            System.out.println(statement);
             ResultSet rs = stmt.executeQuery(statement);
             Alimento alimento;
             Establecimiento estab;
@@ -129,33 +134,36 @@ public class ManejaRecoge extends ManejaTabla {
             try (Statement stmt = conn.createStatement()){
                 String statement = "select count(*) "
                         + "from PERSONA "
-                        + "where idVoluntario=" + idVoluntario + ";";
+                        + "where idVoluntario='" + idVoluntario + "'";
                 ResultSet rs = stmt.executeQuery(statement);
                 rs.next();
                 int cuenta = rs.getInt(1);
-                if(cuenta > 0) {
+                if(cuenta == 0) {
                     statement = "select * from INSTITUCION "
-                            + "where idVoluntario=" + idVoluntario + ";";
+                            + "where idVoluntario='" + idVoluntario + "'";
                     rs = stmt.executeQuery(statement);
                     rs.next();
-                    i = new Institucion(rs.getString(1), 
+                    i.setInstitucion(rs.getString(1), 
                                         rs.getString(2), 
                                         rs.getString(3), 
                                         rs.getString(4),
                                         rs.getInt(5));
                 } else {
                     statement = "select * from PERSONA "
-                            + "where idVoluntario=" + idVoluntario + ";";
+                            + "where idVoluntario='" + idVoluntario + "'";
+                    System.out.println(statement);
                     rs = stmt.executeQuery(statement);
-                    p = new Persona(rs.getString(1), 
-                                    rs.getString(2), 
-                                    rs.getString(3), 
-                                    rs.getString(4), 
-                                    rs.getString(5), 
-                                    rs.getString(6), 
-                                    rs.getInt(7), 
-                                    rs.getString(8),
-                                    rs.getInt(8));
+                    rs.next();
+                    p.setPersona(rs.getString("dni"), 
+                                    rs.getString("nombre"), 
+                                    rs.getString("apellido1"), 
+                                    rs.getString("apellido2"), 
+                                    rs.getString("telefono"), 
+                                    rs.getString("e_mail"), 
+                                    rs.getInt("edad"), 
+                                    rs.getString("localidad"),
+                                    rs.getInt("idVoluntario"));
+                    
                 }
             } catch (SQLException ex) {
                 System.out.println("Error al consultar la tabla PERSONA o INSTITUCION");
@@ -164,5 +172,6 @@ public class ManejaRecoge extends ManejaTabla {
                 System.out.println(ex.getErrorCode());
             }
         }
+        return soloInfo;
     }
 }

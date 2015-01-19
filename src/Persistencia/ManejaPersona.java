@@ -20,7 +20,7 @@ public class ManejaPersona extends ManejaTabla {
         super(conn);
     }
     
-    public void insertaPersona(ConexionOracle conn, Persona p) {
+    public void insertaPersona(Persona p) {
         try (Statement stmt = conn.createStatement()) {
             String statement = "insert into PERSONA values (" +
                     "'" + p.getDni() + "'," +

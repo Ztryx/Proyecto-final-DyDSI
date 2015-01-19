@@ -28,6 +28,13 @@ public class Institucion {
         this.idVoluntario = idVoluntario;
     }
     
+    public void setInstitucion(String CIF, String nombre, String rSocial, String tlf, int idVoluntario) {
+        this.CIF = CIF;
+        this.nombre = nombre;
+        this.rSocial = rSocial;
+        this.tlf = tlf;
+        this.idVoluntario = idVoluntario;
+    }
     public String getCIF() { return CIF; }
     public String getNombre() { return nombre; }
     public String getrSocial() { return rSocial; }
@@ -37,4 +44,11 @@ public class Institucion {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setrSocial(String rSocial) { this.rSocial = rSocial; }
     public void setTlf(String tlf) { this.tlf = tlf; }
+
+    @Override
+    public String toString() {
+        return CIF + ", " + nombre + ", " + rSocial + ", " + tlf;
+    }
+    
+    
 }

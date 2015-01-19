@@ -24,7 +24,23 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(String dni, String nombre, String apellido1, String apellido2, String tlf, String email, int edad, String localidad, int idVoluntario) {
+    public Persona(String dni, String nombre, String apellido1, 
+            String apellido2, String tlf, String email, int edad,
+            String localidad, int idVoluntario) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.tlf = tlf;
+        this.email = email;
+        this.edad = edad;
+        this.localidad = localidad;
+        this.idVoluntario = idVoluntario;
+    }
+    
+    public void setPersona(String dni, String nombre, String apellido1, 
+            String apellido2, String tlf, String email, int edad,
+            String localidad, int idVoluntario) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -54,5 +70,15 @@ public class Persona {
     public void setEmail(String email) { this.email = email; }
     public void setEdad(int edad) { this.edad = edad; }
     public void setLocalidad(String localidad) { this.localidad = localidad; }
+
     public void setIdVoluntario(int idVoluntario) { this.idVoluntario = idVoluntario; }
+
+
+    @Override
+    public String toString() {
+        return dni + ", " + nombre + ", " + apellido1 + ", " + apellido2 + ", " + tlf + ", " + email + ", " + edad + ", " + localidad;
+    }
+    
+    
+
 }
