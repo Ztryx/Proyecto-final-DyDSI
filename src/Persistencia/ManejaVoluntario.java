@@ -6,6 +6,8 @@
 package Persistencia;
 
 import Aplicacion.ConexionOracle;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -15,5 +17,18 @@ public class ManejaVoluntario  extends ManejaTabla {
 
     public ManejaVoluntario(ConexionOracle conn) {
         super(conn);
+    }
+    
+    public void eliminaVoluntario(int idVoluntario) {
+        try (Statement stmt = conn.createStatement()) {
+            String statement = "delete from VOLUNTARIO where id=" +
+                    "'" + idVoluntario + "'";
+            stmt.executeUpdate(statement);
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar de la tabla VOLUNTARIO");
+            System.out.println(e.getMessage());
+            System.out.println(e.getSQLState());
+            System.out.println(e.getErrorCode());
+        }
     }
 }

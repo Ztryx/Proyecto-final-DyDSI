@@ -53,5 +53,22 @@ public class ConexionOracle {
             Logger.getLogger(ConexionOracle.class.getName()).log(Level.SEVERE, null, ex);
         }
         return call;
+        
+    }
+    
+    public void commit() {
+        try {
+            conn.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void rollBack() {
+        try {
+            conn.rollback();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
