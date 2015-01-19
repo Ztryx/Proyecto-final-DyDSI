@@ -6,6 +6,7 @@
 package Persistencia;
 
 import Aplicacion.ConexionOracle;
+import Datos.Establecimiento;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +19,22 @@ public class ManejaEstablecimiento extends ManejaTabla {
 
     public ManejaEstablecimiento(ConexionOracle conn) {
         super(conn);
+    }
+    
+    public void insertarEstablecimiento(Establecimiento est) {
+        try( Statement stmt = conn.createStatement() ) {
+            String statement = "insert into ESTABLECIMIENTO values ('"
+                    + est.getId() + "','" 
+                    + est.getNombre() + "','" 
+                    + est.getDireccion() + "','"
+                    + est.getLocalidad() + "')";
+            stmt.executeUpdate(statement);
+        } catch(SQLException ex) {
+            System.out.println("Error al insertar en la tabla ESTABLECIMIENTO");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
     }
     
     public int generarClave() {
