@@ -10,6 +10,7 @@ import Datos.Alimento;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ManejaAlimento extends ManejaTabla {
 
     public ManejaAlimento(ConexionOracle conn) {
         super(conn);
+        
     }
     public List<Alimento> alimentosCaducados() {
         String statement = "{ call alimentosCaducados(?) }";
@@ -50,5 +52,22 @@ public class ManejaAlimento extends ManejaTabla {
             System.out.println(ex.getErrorCode());
         }
         return resultado;
+    }
+    
+    public int generarClave() {
+        String statement = "SELECT MAX(id) FROM ALIMENTO";
+        int maximaClave = -1;
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(statement);
+            maximaClave = rs.getInt(1);
+            maximaClave++;
+        } catch (SQLException ex){
+            System.out.println("Error al consultar clave de alimentos");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
+        return maximaClave;
     }
 }
