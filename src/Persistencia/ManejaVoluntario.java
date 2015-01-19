@@ -32,6 +32,24 @@ public class ManejaVoluntario  extends ManejaTabla {
             System.out.println(e.getErrorCode());
         }
     }
+    
+    public boolean existeVoluntario(int idVoluntario) {
+        int cuenta = -1;
+        try(Statement stmt = conn.createStatement()) {
+            String statement = "select count(*) "
+                        + "from VOLUNTARIO "
+                        + "where id='" + idVoluntario + "'";
+            ResultSet rs = stmt.executeQuery(statement);
+            rs.next();
+            cuenta = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar la tabla VOLUNTARIO");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
+        return cuenta==1;
+    }
         
     public int generarClave() {
         String statement = "SELECT MAX(id) FROM VOLUNTARIO";
