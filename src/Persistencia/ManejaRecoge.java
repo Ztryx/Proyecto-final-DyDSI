@@ -123,13 +123,8 @@ public class ManejaRecoge extends ManejaTabla {
         }
         if(soloInfo) {
             try (Statement stmt = conn.createStatement()){
-                String statement = "select count(*) "
-                        + "from PERSONA "
-                        + "where idVoluntario='" + idVoluntario + "'";
-                ResultSet rs = stmt.executeQuery(statement);
-                rs.next();
-                int cuenta = rs.getInt(1);
-                if(cuenta == 0) {
+                ManejaPersona mPer = new ManejaPersona(conn);
+                if(!mPer.existeVoluntario(idVoluntario)) {
                     statement = "select * from INSTITUCION "
                             + "where idVoluntario='" + idVoluntario + "'";
                     rs = stmt.executeQuery(statement);
@@ -140,21 +135,7 @@ public class ManejaRecoge extends ManejaTabla {
                                         rs.getString(4),
                                         rs.getInt(5));
                 } else {
-                    statement = "select * from PERSONA "
-                            + "where idVoluntario='" + idVoluntario + "'";
-                    System.out.println(statement);
-                    rs = stmt.executeQuery(statement);
-                    rs.next();
-                    p.setPersona(rs.getString("dni"), 
-                                    rs.getString("nombre"), 
-                                    rs.getString("apellido1"), 
-                                    rs.getString("apellido2"), 
-                                    rs.getString("telefono"), 
-                                    rs.getString("e_mail"), 
-                                    rs.getInt("edad"), 
-                                    rs.getString("localidad"),
-                                    rs.getInt("idVoluntario"));
-                    
+                    p = mPer.getVoluntario(idVoluntario);
                 }
             } catch (SQLException ex) {
                 System.out.println("Error al consultar la tabla PERSONA o INSTITUCION");

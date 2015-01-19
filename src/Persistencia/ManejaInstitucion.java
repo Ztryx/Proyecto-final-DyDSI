@@ -6,6 +6,7 @@
 package Persistencia;
 
 import Aplicacion.ConexionOracle;
+import Datos.Institucion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -49,6 +50,28 @@ public class ManejaInstitucion extends ManejaTabla {
         
         ManejaVoluntario mVol = new ManejaVoluntario(conn);
         mVol.eliminaVoluntario(idVoluntario);
+    }
+    
+    public Institucion getVoluntario(int idVoluntario) {
+        Institucion instit = null;
+        try(Statement stmt = conn.createStatement()) {
+            String statement = "select * from INSTITUCION "
+                    + "where idVoluntario='" + idVoluntario + "'";
+            ResultSet rs = stmt.executeQuery(statement);
+            rs.next();
+            instit = new Institucion(rs.getString("cif"),
+                    rs.getString("nombre"), 
+                    rs.getString("razon_social"),
+                    rs.getString("telefono"),
+                    idVoluntario);
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar de "
+                    + "la tabla INSTITUCION");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
+        return instit;
     }
     
     public void cambiaCIF(String cif_actual, String cif_nuevo) {
