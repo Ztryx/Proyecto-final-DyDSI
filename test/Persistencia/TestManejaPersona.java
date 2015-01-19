@@ -1,3 +1,5 @@
+package Persistencia;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,8 +20,10 @@ public class TestManejaPersona {
         ConexionOracle conn = new ConexionOracle();
         conn.Conexion();
         
-        Persona p = new Persona("29621480X", "Cesar", "Enrique", "Ramirez", "722461083", "caenrique93@gmail.com", 21, "Huelva");
         ManejaPersona manejap = new ManejaPersona(conn);
+        Persona p = new Persona("29621480X", "Cesar", "Enrique", "Ramirez", 
+                "722461083", "caenrique93@gmail.com", 21, "Huelva", 
+                manejap.generarClave());
         
         manejap.insertaPersona(p);
         
