@@ -23,11 +23,11 @@ public class ManejaInstitucion extends ManejaTabla {
         super(conn);
     }
 
-    public void mostrarInstituciones() {
+    public List<Institucion> getInstituciones() {
+        List<Institucion> instituciones = new LinkedList<>();
         try (Statement stmt = conn.createStatement()) {
             String statement = "select * from INSTITUCION";
             ResultSet rs = stmt.executeQuery(statement);
-            List<Institucion> instituciones = new LinkedList<>();
             while (rs.next()) {
                 instituciones.add(new Institucion(rs.getString("cif"),
                         rs.getString("nombre"),
@@ -41,6 +41,7 @@ public class ManejaInstitucion extends ManejaTabla {
             System.out.println(e.getSQLState());
             System.out.println(e.getErrorCode());
         }
+        return instituciones;
     }
 
     public void eliminaInstitucion(String cif) {
