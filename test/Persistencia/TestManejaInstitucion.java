@@ -5,6 +5,8 @@
 package Persistencia;
 
 import Aplicacion.ConexionOracle;
+import Datos.Institucion;
+import java.util.LinkedList;
 
 /**
  *
@@ -18,6 +20,9 @@ public class TestManejaInstitucion {
         mInst.eliminaInstitucion("A11111111");
         
         mInst.cambiaCIF("A11111112", "A11111113");
+        
+        LinkedList<Institucion> instituciones = (LinkedList<Institucion>)
+                 mInst.getInstituciones();
         
         conn.Desconexion();
     }
