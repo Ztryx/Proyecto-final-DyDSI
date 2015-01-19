@@ -22,6 +22,7 @@ public class Persona {
     private String localidad;
 
     public Persona() {
+
     }
 
     public Persona(String dni, String nombre, String apellido1, 
