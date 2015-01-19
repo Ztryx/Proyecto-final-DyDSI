@@ -37,6 +37,26 @@ public class ManejaEstablecimiento extends ManejaTabla {
         }
     }
     
+    public Establecimiento getEstablecimiento(int id) {
+        Establecimiento est = null;
+        try(Statement stmt = conn.createStatement()) {
+            String statement = "select * from ESTABLECIMIENTO "
+                    + "where id=" + id;
+            ResultSet rs = stmt.executeQuery(statement);
+            rs.next();
+            est = new Establecimiento(rs.getInt("id"), 
+                    rs.getString("nombre"), 
+                    rs.getString("direccion"), 
+                    rs.getString("localidad"));
+        } catch(SQLException ex) {
+            System.out.println("Error al consultar la tabla ESTABLECIMIENTO");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
+        return est;
+    }
+    
     public int generarClave() {
         String statement = "SELECT MAX(id) FROM ESTABLECIMIENTO";
         int maximaClave = -1;
