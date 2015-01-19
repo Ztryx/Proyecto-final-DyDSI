@@ -90,19 +90,7 @@ public class ManejaPersona extends ManejaTabla {
     }
     
     public int generarClave() {
-        String statement = "SELECT MAX(id) FROM PERSONA";
-        int maximaClave = -1;
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(statement);
-            maximaClave = rs.getInt(1);
-            maximaClave++;
-        } catch (SQLException ex){
-            System.out.println("Error al consultar clave de persona");
-            System.out.println(ex.getMessage());
-            System.out.println(ex.getSQLState());
-            System.out.println(ex.getErrorCode());
-        }
-        return maximaClave;
+        ManejaVoluntario mVol = new ManejaVoluntario(conn);
+        return mVol.generarClave();
     }
 }
