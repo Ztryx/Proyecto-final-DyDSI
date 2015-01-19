@@ -4,10 +4,20 @@
  */
 package Persistencia;
 
+import Aplicacion.ConexionOracle;
+
 /**
  *
  * @author usuario
  */
 public class TestManejaVoluntario {
-    
+    public static void main(String[] args) {
+        ConexionOracle conn = new ConexionOracle();
+        conn.Conexion();
+        
+        ManejaVoluntario mVol = new ManejaVoluntario(conn);
+        mVol.eliminaVoluntario(1);
+        int id = mVol.generarClave();
+        
+    }
 }
