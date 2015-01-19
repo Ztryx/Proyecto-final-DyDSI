@@ -5,9 +5,13 @@
  */
 package Interfaz;
 
+import Datos.Establecimiento;
 import Datos.Institucion;
 import Datos.Persona;
+import Persistencia.ManejaEstablecimiento;
 import Persistencia.ManejaInstitucion;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -107,8 +111,9 @@ public class Menu {
         //    private int edad;
         int edad = Integer.MIN_VALUE;
         do {
-            if (edad != Integer.MIN_VALUE) 
+            if (edad != Integer.MIN_VALUE) {
                 System.out.println("Edad incorrecta.");
+            }
             System.out.println("Introduzca edad: ");
             edad = Teclado.readInt();
         } while (edad <= 0);
@@ -123,7 +128,7 @@ public class Menu {
             localidad = Teclado.readString();
         } while (localidad.isEmpty());
         persona.setLocalidad(localidad);
-        
+
         System.out.println(persona);
         return persona;
     }
@@ -137,13 +142,34 @@ public class Menu {
         }
         String CIF = null;
         do {
-            if (CIF != null)
+            if (CIF != null) {
                 System.out.println("CIF no valido");
+            }
             System.out.println("Introduce el CIF de la Institución a eliminar: ");
             CIF = Teclado.readString();
         } while (!CIF.matches("([A-Z]{1})(\\d{8})"));
-        
+
         mInst.eliminaInstitucion(CIF);
     }
-    
+
+    public static void alimentosRecogidos(ManejaEstablecimiento mEstablecimiento) {
+        List<Establecimiento> establecimientos = mEstablecimiento.getEstablecimientos();
+        System.out.println("Establecimientos registrados en la base de datos: ");
+        System.out.println("id - nombre - dirección - localidad");
+        for (Establecimiento e : establecimientos) {
+            System.out.println(e);
+        }
+
+
+        System.out.println("Introduce el id del establecimiento a consultar: ");
+        int id = Teclado.readInt();
+        
+        String fecha1 = null;
+        do {
+            System.out.println("Introduce fecha inicial (dd/mm/aaaa): ");
+            fecha1 = Teclado.readString();
+        }while(!fecha1.matches("([0][1-9]|[12][0-9]|3[01])(\\/|-)([0][1-9]|[1][0-2])\\2(\\d{4})"));
+        String[] f1 = fecha1.split("/");
+        Date date1 = new Date(f1[2], f1[1], f1[0]);
+    }
 }

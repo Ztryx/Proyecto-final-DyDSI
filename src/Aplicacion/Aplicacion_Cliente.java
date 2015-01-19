@@ -2,6 +2,7 @@ package Aplicacion;
 
 import Interfaz.Menu;
 import Persistencia.ManejaAlimento;
+import Persistencia.ManejaEstablecimiento;
 import Persistencia.ManejaInstitucion;
 import Persistencia.ManejaPersona;
 
@@ -25,6 +26,8 @@ public class Aplicacion_Cliente {
                     Menu.eliminaInstitucion(new ManejaInstitucion(conexion));
                     break;
                 case 3:
+                    ManejaEstablecimiento mEstablecimiento = new ManejaEstablecimiento(conexion);
+                    Menu.alimentosRecogidos(mEstablecimiento);
                     break;
                 case 4:
                     break;
