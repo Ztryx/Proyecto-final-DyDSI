@@ -45,7 +45,6 @@ public class TestManejaRecoge {
         
         mr.productosRecogidos(1, p, i, alimentos, establs);
         
-        mr.listadoAlimentos(null, null, null)
 
         conn.Desconexion();
     }

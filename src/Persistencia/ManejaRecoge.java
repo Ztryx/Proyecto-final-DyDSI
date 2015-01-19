@@ -10,7 +10,6 @@ import Datos.Alimento;
 import Datos.Establecimiento;
 import Datos.Institucion;
 import Datos.Persona;
-import Datos.Voluntario;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -142,7 +141,8 @@ public class ManejaRecoge extends ManejaTabla {
                     i = new Institucion(rs.getString(1), 
                                         rs.getString(2), 
                                         rs.getString(3), 
-                                        rs.getString(4));
+                                        rs.getString(4),
+                                        rs.getInt(5));
                 } else {
                     statement = "select * from PERSONA "
                             + "where idVoluntario=" + idVoluntario + ";";
@@ -154,7 +154,8 @@ public class ManejaRecoge extends ManejaTabla {
                                     rs.getString(5), 
                                     rs.getString(6), 
                                     rs.getInt(7), 
-                                    rs.getString(8));
+                                    rs.getString(8),
+                                    rs.getInt(8));
                 }
             } catch (SQLException ex) {
                 System.out.println("Error al consultar la tabla PERSONA o INSTITUCION");

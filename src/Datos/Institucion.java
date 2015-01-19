@@ -11,7 +11,7 @@ package Datos;
  * @author caenrique93
  */
 public class Institucion {
-    private int id;
+    private int idVoluntario;
     private String CIF;
     private String nombre;
     private String rSocial;
@@ -20,11 +20,12 @@ public class Institucion {
     public Institucion() {
     }
 
-    public Institucion(String CIF, String nombre, String rSocial, String tlf) {
+    public Institucion(String CIF, String nombre, String rSocial, String tlf, int idVoluntario) {
         this.CIF = CIF;
         this.nombre = nombre;
         this.rSocial = rSocial;
         this.tlf = tlf;
+        this.idVoluntario = idVoluntario;
     }
     
     public String getCIF() { return CIF; }

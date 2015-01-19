@@ -11,7 +11,7 @@ package Datos;
  * @author caenrique93
  */
 public class Persona {
-    private int id;
+    private int idVoluntario;
     private String dni;
     private String nombre;
     private String apellido1;
@@ -24,7 +24,7 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(String dni, String nombre, String apellido1, String apellido2, String tlf, String email, int edad, String localidad) {
+    public Persona(String dni, String nombre, String apellido1, String apellido2, String tlf, String email, int edad, String localidad, int idVoluntario) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -33,6 +33,7 @@ public class Persona {
         this.email = email;
         this.edad = edad;
         this.localidad = localidad;
+        this.idVoluntario = idVoluntario;
     }
 
     public String getDni() { return dni; }
@@ -43,6 +44,7 @@ public class Persona {
     public String getEmail() { return email; }
     public int getEdad() { return edad; }
     public String getLocalidad() { return localidad; }
+    public int getIdVoluntario() { return idVoluntario; }
     
     public void setDni(String dni) { this.dni = dni; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -52,4 +54,5 @@ public class Persona {
     public void setEmail(String email) { this.email = email; }
     public void setEdad(int edad) { this.edad = edad; }
     public void setLocalidad(String localidad) { this.localidad = localidad; }
+    public void setIdVoluntario(int idVoluntario) { this.idVoluntario = idVoluntario; }
 }
