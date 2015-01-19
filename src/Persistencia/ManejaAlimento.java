@@ -6,6 +6,7 @@
 package Persistencia;
 
 import Aplicacion.ConexionOracle;
+import Aplicacion.Fecha;
 import Datos.Alimento;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -52,6 +53,23 @@ public class ManejaAlimento extends ManejaTabla {
             System.out.println(ex.getErrorCode());
         }
         return resultado;
+    }
+    
+    public void insertarAlimento(Alimento a) {
+        try (Statement stmt = conn.createStatement()) {
+            String statement = "insert into ALIMENTO values (" +
+                    "'" + a.getId() + "'," +
+                    "'" + a.getDescripcion()+ "'," +
+                    "'" + Fecha.fecha(a.getFechaCaducidad())+ "')";
+            ResultSet rs = stmt.executeQuery(statement);
+            conn.commit();
+        } catch (SQLException ex) {
+            conn.rollBack();
+            System.out.println("Error al insertar en la tabla ALIMENTO");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
     }
     
     public int generarClave() {
