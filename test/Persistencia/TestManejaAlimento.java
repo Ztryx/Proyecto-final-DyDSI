@@ -34,8 +34,6 @@ public class TestManejaAlimento {
                 "grillo frito", 
                 new Date(2015, 06, 10)));
         
-        
-        
         conn.Desconexion();
     }
 }
