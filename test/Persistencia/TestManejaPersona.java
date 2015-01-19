@@ -9,7 +9,6 @@ package Persistencia;
 
 import Aplicacion.ConexionOracle;
 import Datos.Persona;
-import Persistencia.ManejaPersona;
 
 /**
  *
@@ -21,11 +20,19 @@ public class TestManejaPersona {
         conn.Conexion();
         
         ManejaPersona manejap = new ManejaPersona(conn);
+        int clave = manejap.generarClave();
         Persona p = new Persona("29621480X", "Cesar", "Enrique", "Ramirez", 
                 "722461083", "caenrique93@gmail.com", 21, "Huelva", 
-                manejap.generarClave());
+                clave);
         
+        // probar insertaPersona()
         manejap.insertaPersona(p);
+        
+        // probar getVoluntario()
+        manejap.getVoluntario(clave);
+        
+        // probar existeVoluntario()
+        manejap.existeVoluntario(clave);
         
         conn.Desconexion();
     }

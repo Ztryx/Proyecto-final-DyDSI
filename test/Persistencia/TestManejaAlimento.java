@@ -7,6 +7,7 @@ package Persistencia;
 
 import Aplicacion.ConexionOracle;
 import Datos.Alimento;
+import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -19,11 +20,20 @@ public class TestManejaAlimento {
         conn.Conexion();
         
         ManejaAlimento mAlim = new ManejaAlimento(conn);
+        
+        // probar alimentosCaducados()
         LinkedList<Alimento> caducados = 
                 (LinkedList<Alimento>) mAlim.alimentosCaducados();
+        
         for(Alimento a : caducados) {
             System.out.println(a.toString());
         }
+        
+        // probar insertarAlimento
+        mAlim.insertarAlimento(new Alimento(mAlim.generarClave(), 
+                "grillo frito", 
+                new Date(2015, 06, 10)));
+        
         conn.Desconexion();
     }
 }

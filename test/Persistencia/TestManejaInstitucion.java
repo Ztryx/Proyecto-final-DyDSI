@@ -17,12 +17,19 @@ public class TestManejaInstitucion {
         ConexionOracle conn = new ConexionOracle();
         ManejaInstitucion mInst = new ManejaInstitucion(conn);
         conn.Conexion();
-        mInst.eliminaInstitucion("A11111111");
         
+        // probar cambiaCIF()
         mInst.cambiaCIF("A11111112", "A11111113");
         
+        // probar getVoluntario()
+        mInst.getVoluntario(1);
+        
+        // probar getInstituciones()
         LinkedList<Institucion> instituciones = (LinkedList<Institucion>)
                  mInst.getInstituciones();
+        
+        // probar eliminaIstitucion
+        mInst.eliminaInstitucion("A11111113");
         
         conn.Desconexion();
     }
