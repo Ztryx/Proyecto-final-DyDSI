@@ -50,6 +50,45 @@ public class ManejaPersona extends ManejaTabla {
         }
     }
     
+    public Persona getVoluntario(int idVoluntario) {
+        Persona persona = null;
+        try(Statement stmt = conn.createStatement()) {
+            String statement = "select * from PERSONA "
+                    + "where idVoluntario='" + idVoluntario + "'";
+            ResultSet rs = stmt.executeQuery(statement);
+            rs.next();
+            persona = new Persona(rs.getString("dni"),
+                    rs.getString("nombre"), 
+                    rs.getString("apellido1"),
+                    rs.getString("apellido2"),
+                    rs.getString("telefono"),
+                    rs.getString("email"),
+                    rs.getInt("edad"),
+                    rs.getString("localidad"),
+                    idVoluntario);
+        } catch (Exception e) {
+        }
+        return persona;
+    }
+    
+    public boolean existeVoluntario(int idVoluntario) {
+        int cuenta = -1;
+        try(Statement stmt = conn.createStatement()) {
+            String statement = "select count(*) "
+                        + "from PERSONA "
+                        + "where idVoluntario='" + idVoluntario + "'";
+            ResultSet rs = stmt.executeQuery(statement);
+            rs.next();
+            cuenta = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar la tabla PERSONA");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getSQLState());
+            System.out.println(ex.getErrorCode());
+        }
+        return cuenta==1;
+    }
+    
     public int generarClave() {
         String statement = "SELECT MAX(id) FROM PERSONA";
         int maximaClave = -1;
